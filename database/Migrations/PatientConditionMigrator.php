@@ -17,11 +17,10 @@ class PatientConditionMigrator
         $sql = "CREATE TABLE $table(
         condition_id INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
         patient_id INT UNSIGNED NOT NULL,
-        condition ENUM('critical' , 'stable' , 'normal', 'other') NOT NULL,
-        description TEXT NULL,
+        condition ENUM('critical' , 'stable' , 'other') NOT NULL,
         created_at TIMESTAMP NULL,
         updated_at TIMESTAMP NULL,
-        FOREIGN KEY (patient_id) REFERENCES {$wpdb->prefix}patients(patient_id)
+        FOREIGN KEY(patient_id) REFERENCES {$wpdb->prefix}patients(patient_id)
         )$charsetCollate;";
 
     require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );

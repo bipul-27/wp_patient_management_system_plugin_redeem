@@ -18,10 +18,11 @@ function activate_my_laravel_plugin() {
     FluentPlugin\Database\Migrations\UserMigrator::migrate();
     FluentPlugin\Database\Migrations\DoctorMigrator::migrate();
     FluentPlugin\Database\Migrations\PatientsMigrator::migrate();
-    
-    
     FluentPlugin\Database\Migrations\PatientConditionMigrator::migrate();
     FluentPlugin\Database\Migrations\DoctorPatientMigrator::migrate();
+    
+    
+    
     
     
    
