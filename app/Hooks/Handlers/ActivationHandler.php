@@ -5,6 +5,7 @@ namespace FluentPlugin\App\Hooks\Handlers;
 use FluentPlugin\Framework\Foundation\Application;
 use FluentPlugin\Database\DBMigrator;
 use FluentPlugin\Database\DBSeeder;
+use FluentPlugin\Database;
 
 class ActivationHandler
 {

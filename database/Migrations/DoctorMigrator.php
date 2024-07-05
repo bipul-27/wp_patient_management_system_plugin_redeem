@@ -16,14 +16,13 @@ class DoctorMigrator
 
         $sql = "CREATE TABLE $table (
         doctor_id INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
-        user_id INT UNSIGNED NOT NULL UNIQUE,
-        name VARCHAR(255) NOT NULL,
+        username VARCHAR(255) NOT NULL,
         email VARCHAR(255) NOT NULL UNIQUE,
+        name VARCHAR(255) NOT NULL UNIQUE,
         speciality VARCHAR(255) NULL,
         contact_info VARCHAR(255) NULL,
         created_at TIMESTAMP NULL,
         updated_at TIMESTAMP NULL,
-        FOREIGN KEY (user_id) REFERENCES {$wpdb->prefix}clinic(user_id)
         )$charsetCollate;";
 
         require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );

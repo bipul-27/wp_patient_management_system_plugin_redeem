@@ -21,6 +21,7 @@ class PatientsMigrator
         age INT NULL,
         gender ENUM('male','female', 'others') NOT NULL,
         contact_info VARCHAR(255) NULL,
+        health_condition ENUM('critical','stable','normal') NOT NULL,
         created_at TIMESTAMP NULL,
         updated_at TIMESTAMP NULL,
         FOREIGN KEY(doctor_id) REFERENCES {$wpdb->prefix}doctors(doctor_id)
