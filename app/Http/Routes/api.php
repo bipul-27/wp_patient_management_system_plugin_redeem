@@ -1,7 +1,9 @@
 <?php
 
-/**
- * @var $router FluentPlugin\Framework\Http\Router\Router
- */
+defined( 'ABSPATH' ) || exit;
 
-$router->get('/welcome', 'WelcomeController@index');
+/**
+ * @var $router FluentBooking\Framework\Http\Router
+ */
+    
+    $router->post('/', 'DoctorController@index');

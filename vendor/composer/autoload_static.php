@@ -38,6 +38,8 @@ class ComposerStaticInit53f4ee774dfa778f0261b6480385d154
         'FluentPlugin\\Database\\DBMigrator' => __DIR__ . '/../..' . '/database/DBMigrator.php',
         'FluentPlugin\\Database\\DBSeeder' => __DIR__ . '/../..' . '/database/DBSeeder.php',
         'FluentPlugin\\Database\\Migrations\\ExampleMigrator' => __DIR__ . '/../..' . '/database/Migrations/ExampleMigrator.php',
+        'FluentPlugin\\Database\\Migrations\\DoctorMigrator' => __DIR__ . '/../..' . '/database/Migrations/DoctorMigrator.php',
+        'FluentPlugin\\Database\\Migrations\\PatientsMigrator' => __DIR__ . '/../..' . '/database/Migrations/PatientsMigrator.php',
     );
 
     public static function getInitializer(ClassLoader $loader)

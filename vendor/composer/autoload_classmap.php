@@ -10,4 +10,6 @@ return array(
     'FluentPlugin\\Database\\DBMigrator' => $baseDir . '/database/DBMigrator.php',
     'FluentPlugin\\Database\\DBSeeder' => $baseDir . '/database/DBSeeder.php',
     'FluentPlugin\\Database\\Migrations\\ExampleMigrator' => $baseDir . '/database/Migrations/ExampleMigrator.php',
+    'FluentPlugin\\Database\\Migrations\\DoctorMigrator' => $baseDir . '/database/Migrations/DoctorMigrator.php',
+    'FluentPlugin\\Database\\Migrations\\PatientsMigrator' => $baseDir . '/database/Migrations/PatientsMigrator.php',
 );

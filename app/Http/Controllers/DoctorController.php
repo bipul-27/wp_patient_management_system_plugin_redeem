@@ -20,17 +20,22 @@ class DoctorController extends Controller
 
     public function store(Request $request)
     {
-        $request->validate([
-            'username'=> 'required|unique:doctors',
-            'password'=> 'required',
-            'email'=>'required|unique:doctors',
-            'name'=>'required',
-        ]);
-        $doctor = new Doctor($request->all());
-    $doctor->password = Hash::make($request->password);
-    $doctor->save();
+        try {
+            $request->validate([
+                'username'=> 'required|unique:doctors',
+                'password'=> 'required',
+                'email'=>'required|unique:doctors',
+                'name'=>'required',
+            ]);
 
-    return response()->json($doctor,201);
+            $doctor = new Doctor($request->all());
+            $doctor->password = Hash::make($request->password);
+            $doctor->save();
+
+            return response()->json($doctor, 201);
+        } catch (\Exception $e) {
+            return response()->json(['error' => $e->getMessage()], 500);
+        }
     }
 
     public function update(Request $request,$id)

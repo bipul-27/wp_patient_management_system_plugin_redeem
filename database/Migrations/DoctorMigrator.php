@@ -15,15 +15,16 @@ class DoctorMigrator
         $table = $wpdb->prefix . static::$tableName;
 
         $sql = "CREATE TABLE $table (
-        doctor_id INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
-        username VARCHAR(255) NOT NULL,
-        email VARCHAR(255) NOT NULL UNIQUE,
-        name VARCHAR(255) NOT NULL UNIQUE,
-        speciality VARCHAR(255) NULL,
-        contact_info VARCHAR(255) NULL,
-        created_at TIMESTAMP NULL,
-        updated_at TIMESTAMP NULL,
-        )$charsetCollate;";
+            doctor_id INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+            username VARCHAR(255) NOT NULL UNIQUE,
+            email VARCHAR(255) NOT NULL UNIQUE,
+            name VARCHAR(255) NOT NULL,
+            speciality VARCHAR(255) NULL,
+            contact_info VARCHAR(255) NULL,
+            created_at TIMESTAMP NULL,
+            updated_at TIMESTAMP NULL
+        ) $charsetCollate;";
+    
 
         require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
         dbDelta($sql);

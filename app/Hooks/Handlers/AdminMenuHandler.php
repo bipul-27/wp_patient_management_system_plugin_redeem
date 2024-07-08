@@ -9,17 +9,42 @@ class AdminMenuHandler
     public function add()
     {
         $capability = 'manage_options';
+        $slug = 'doctor_list';
 
         add_menu_page(
-            __('FluentPlugin', 'fluentplugin'),
-            __('FluentPlugin', 'fluentplugin'),
+            __('Doctor List', 'fluentplugin'),
+            __('Doctor List', 'fluentplugin'),
             $capability,
-            'fluentplugin',
+            $slug,
             [$this, 'render'],
             $this->getMenuIcon(),
             6
         );
+    //     $capability = 'manage_options';
+    // $slug = 'doctor_list';
+
+    // add_menu_page(
+    //     __('Doctor List', 'textdomain'),
+    //     __('Doctor List', 'textdomain'),
+    //     $capability,
+    //     $slug,
+    //     [$this, 'menu_page_template'],
+    //     ''
+    // );
+
+    // add_submenu_page(
+    //     $slug,
+    //     __('List', 'textdomain'),
+    //     __('List', 'textdomain'),
+    //     $capability,
+    //     $slug . '_list',
+    //     'my_laravel_plugin_submenu_page_template'
+    // );
     }
+//     function menu_page_template()
+// {
+//     echo '<div class="wrap"><div id="doctor_list"></div></div>';
+// }
 
     public function render()
     {
