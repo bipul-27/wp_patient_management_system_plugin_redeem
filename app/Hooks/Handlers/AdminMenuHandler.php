@@ -9,11 +9,11 @@ class AdminMenuHandler
     public function add()
     {
         $capability = 'manage_options';
-        $slug = 'doctor_list';
+        $slug = 'patient-management';
 
         add_menu_page(
-            __('Doctor List', 'fluentplugin'),
-            __('Doctor List', 'fluentplugin'),
+            __('Patient Management', 'fluentplugin'),
+            __('Patient Management', 'fluentplugin'),
             $capability,
             $slug,
             [$this, 'render'],
@@ -49,6 +49,7 @@ class AdminMenuHandler
     public function render()
     {
         $this->enqueueAssets();
+        
 
         $config = App::getInstance('config');
 
@@ -77,6 +78,7 @@ class AdminMenuHandler
 		    'logo'      => $assets . 'images/logo.svg',
 	    ]);
     }
+   
 
     public function enqueueAssets()
     {

@@ -5,7 +5,6 @@ import DashboardApplication from "./Application.vue";
 import Rest from './Bits/Rest.js';
 import {ElNotification, ElLoading, ElMessageBox} from 'element-plus'
 import Storage from '@/Bits/Storage';
-import GeneralTab from './Components/AddDoctor.vue'
 
 function convertToText(obj) {
     const string = [];
@@ -95,13 +94,11 @@ router.afterEach((to, from) => {
     jQuery('.fframe_menu li').removeClass('active_item');
     jQuery('.fframe_menu li.fframe_item_' + activeMenu).addClass('active_item');
 
-    jQuery('.toplevel_page_doctor_list li').removeClass('current'); // change fluent_frame with your plugin slug
-    jQuery('.toplevel_page_fluent_frame li.doctor_list_' + activeMenu).addClass('current'); // change fluent_frame with your plugin slug
+    jQuery('.toplevel_page_fluent_frame li').removeClass('current'); // change fluent_frame with your plugin slug
+    jQuery('.toplevel_page_fluent_frame li.fluent_frame_' + activeMenu).addClass('current'); // change fluent_frame with your plugin slug
 
     if(to.meta.title) {
-        jQuery('head title').text(to.meta.title + ' Patient Management'); // Change it with your app name
+        jQuery('head title').text(to.meta.title + ' - Fluent Framework'); // Change it with your app name
     }
 
 });
-
-

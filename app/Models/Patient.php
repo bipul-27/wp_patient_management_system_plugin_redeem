@@ -10,6 +10,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 class Patient extends Model 
 {
     use HasFactory;
+    protected $table = 'wp_patients';
     protected $fillable = [
         'doctor_id',
         'name',

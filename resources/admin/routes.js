@@ -1,4 +1,6 @@
 import Dashboard from './Components/Dashboard.vue';
+import CreateDoctor from './Components/CreateDoctor.vue';
+
 
 export var routes = [
     {
@@ -8,6 +10,16 @@ export var routes = [
         meta: {
             active_menu: 'dashboard'
         }
+    },
+    {
+        path: '/create-doctor',
+        name: 'create-doctor',
+        component: CreateDoctor,
+        meta: {
+            active_menu: 'create-doctor'
+        }
     }
+    
+    
 ];
 
