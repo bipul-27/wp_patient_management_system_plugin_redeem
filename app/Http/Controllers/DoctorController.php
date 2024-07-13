@@ -2,15 +2,26 @@
 
 namespace FluentPlugin\App\Http\Controllers;
 
-use App\Models\Doctor;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
+use FluentPlugin\App\Models\Doctor;
+// use Illuminate\Http\Request;
+// use Illuminate\Support\Facades\Hash;
+use FluentPlugin\Framework\Request\Request;
 
 class DoctorController extends Controller 
 {
-    public function index()
+    public function index(Request $request)
     {
-        return Doctor::all();
+        $search = sanitize_text_field( $request->get('search') );
+        $query = Doctor::query();
+
+        if (!empty($search)) {
+            $query = $query->where('speciality', $search);
+        }
+        $query = $query->get();
+
+        return [
+            'doctors' => $query
+        ];
     }
 
     public function show($id)
@@ -20,19 +31,41 @@ class DoctorController extends Controller
 
     public function store(Request $request)
     {
+        $doctor = $request->get('doctors');
+        
         try {
-            $request->validate([
-                'username'=> 'required|unique:doctors',
-                'password'=> 'required',
-                'email'=>'required|unique:doctors',
-                'name'=>'required',
-            ]);
+            // $doctor->validate([
+            //     'username'=> 'required|unique',
+            //     'password'=> 'required',
+            //     'email'=>'required',
+            //     'name'=>'required',
+            // ]);
 
-            $doctor = new Doctor($request->all());
-            $doctor->password = Hash::make($request->password);
-            $doctor->save();
-
-            return response()->json($doctor, 201);
+            // $doctor = new Doctor($request->all());
+            // $data = [
+            //     'username' => 
+            //      'password',
+            //       'email', 
+            //       '',
+            //        'specialty',
+            //         'contact_info'
+                    
+            // ];
+            // $doctor->password = $request->password;
+            $data = [
+                'username' => $doctor['username'],
+                'email' => $doctor['email'],
+                'name' => $doctor['name'],
+                'contact_info' => $doctor['contact_info'],
+                'speciality' => $doctor['specialty']
+            ];
+            Doctor::create($data);
+            $allDoctors = Doctor::query()->get();
+            
+            return [
+                'message' => 'success',
+                'doctors' => $allDoctors
+            ];
         } catch (\Exception $e) {
             return response()->json(['error' => $e->getMessage()], 500);
         }

@@ -51931,9 +51931,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* unplugin-vue-components disabled *//* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  name: 'CreateDoctor',
   data: function data() {
     return {
-      doctorForm: {
+      doctors: {
         username: '',
         password: '',
         email: '',
@@ -51950,11 +51951,21 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     createDoctor: function createDoctor() {
+      var _this = this;
       // Mocked create doctor function, replace with actual API call
-      console.log('Creating doctor with data:', this.doctorForm);
+      // console.log('Creating doctor with data:', this.doctors);
+      this.$post('doctors', {
+        doctors: this.doctors
+      }).then(function (response) {})["catch"](function (errors) {
+        _this.$handleError(errors);
+        console.log(errors);
+      })["finally"](function () {
+        _this.saving = false;
+      });
       this.navigateBack();
     }
-  }
+  },
+  mounted: function mounted() {}
 });
 
 /***/ }),
@@ -51975,7 +51986,9 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       me: this.appVars.me,
-      doctors: [] // Add the doctors property here
+      doctors: [],
+      // Add the doctors property here
+      saving: false
     };
   },
   methods: {
@@ -51985,23 +51998,23 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     fetchDoctors: function fetchDoctors() {
-      // Mocked fetch data function, replace with actual API call
-      this.doctors = [{
-        id: 1,
-        username: 'doctor1',
-        email: 'doctor1@example.com',
-        name: 'Doctor One',
-        specialty: 'Cardiology',
-        contact_info: '123-456-7890'
-      }, {
-        id: 2,
-        username: 'doctor2',
-        email: 'doctor2@example.com',
-        name: 'Doctor Two',
-        specialty: 'Dermatology',
-        contact_info: '123-456-7891'
-      }];
+      var _this = this;
+      this.saving = true;
+      this.$get('doctors', {
+        search: ''
+      }).then(function (response) {
+        _this.doctors = response.doctors;
+      })["catch"](function (errors) {
+        _this.$handleError(errors);
+        console.log(errors);
+      })["finally"](function () {
+        _this.saving = false;
+      });
     },
+    // this.doctors = [
+    //     { id: 1, username: 'doctor1', email: 'doctor1@example.com', name: 'Doctor One', specialty: 'Cardiology', contact_info: '123-456-7890' },
+    //     { id: 2, username: 'doctor2', email: 'doctor2@example.com', name: 'Doctor Two', specialty: 'Dermatology', contact_info: '123-456-7891' }
+    // ];
     editDoctor: function editDoctor(doctor) {
       // Implement edit functionality
     },
@@ -52095,7 +52108,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   }, {
     "default": (0,vue__WEBPACK_IMPORTED_MODULE_5__.withCtx)(function () {
       return [_hoisted_2, (0,vue__WEBPACK_IMPORTED_MODULE_5__.createVNode)(_component_el_form, {
-        model: $data.doctorForm,
+        model: $data.doctors,
         "label-width": "120px",
         "class": "create-doctor-form"
       }, {
@@ -52105,9 +52118,9 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
           }, {
             "default": (0,vue__WEBPACK_IMPORTED_MODULE_5__.withCtx)(function () {
               return [(0,vue__WEBPACK_IMPORTED_MODULE_5__.createVNode)(_component_el_input, {
-                modelValue: $data.doctorForm.username,
+                modelValue: $data.doctors.username,
                 "onUpdate:modelValue": _cache[0] || (_cache[0] = function ($event) {
-                  return $data.doctorForm.username = $event;
+                  return $data.doctors.username = $event;
                 })
               }, null, 8 /* PROPS */, ["modelValue"])];
             }),
@@ -52118,9 +52131,9 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
             "default": (0,vue__WEBPACK_IMPORTED_MODULE_5__.withCtx)(function () {
               return [(0,vue__WEBPACK_IMPORTED_MODULE_5__.createVNode)(_component_el_input, {
                 type: "password",
-                modelValue: $data.doctorForm.password,
+                modelValue: $data.doctors.password,
                 "onUpdate:modelValue": _cache[1] || (_cache[1] = function ($event) {
-                  return $data.doctorForm.password = $event;
+                  return $data.doctors.password = $event;
                 })
               }, null, 8 /* PROPS */, ["modelValue"])];
             }),
@@ -52130,9 +52143,9 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
           }, {
             "default": (0,vue__WEBPACK_IMPORTED_MODULE_5__.withCtx)(function () {
               return [(0,vue__WEBPACK_IMPORTED_MODULE_5__.createVNode)(_component_el_input, {
-                modelValue: $data.doctorForm.email,
+                modelValue: $data.doctors.email,
                 "onUpdate:modelValue": _cache[2] || (_cache[2] = function ($event) {
-                  return $data.doctorForm.email = $event;
+                  return $data.doctors.email = $event;
                 })
               }, null, 8 /* PROPS */, ["modelValue"])];
             }),
@@ -52142,9 +52155,9 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
           }, {
             "default": (0,vue__WEBPACK_IMPORTED_MODULE_5__.withCtx)(function () {
               return [(0,vue__WEBPACK_IMPORTED_MODULE_5__.createVNode)(_component_el_input, {
-                modelValue: $data.doctorForm.name,
+                modelValue: $data.doctors.name,
                 "onUpdate:modelValue": _cache[3] || (_cache[3] = function ($event) {
-                  return $data.doctorForm.name = $event;
+                  return $data.doctors.name = $event;
                 })
               }, null, 8 /* PROPS */, ["modelValue"])];
             }),
@@ -52154,9 +52167,9 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
           }, {
             "default": (0,vue__WEBPACK_IMPORTED_MODULE_5__.withCtx)(function () {
               return [(0,vue__WEBPACK_IMPORTED_MODULE_5__.createVNode)(_component_el_input, {
-                modelValue: $data.doctorForm.specialty,
+                modelValue: $data.doctors.specialty,
                 "onUpdate:modelValue": _cache[4] || (_cache[4] = function ($event) {
-                  return $data.doctorForm.specialty = $event;
+                  return $data.doctors.specialty = $event;
                 })
               }, null, 8 /* PROPS */, ["modelValue"])];
             }),
@@ -52166,9 +52179,9 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
           }, {
             "default": (0,vue__WEBPACK_IMPORTED_MODULE_5__.withCtx)(function () {
               return [(0,vue__WEBPACK_IMPORTED_MODULE_5__.createVNode)(_component_el_input, {
-                modelValue: $data.doctorForm.contact_info,
+                modelValue: $data.doctors.contact_info,
                 "onUpdate:modelValue": _cache[5] || (_cache[5] = function ($event) {
-                  return $data.doctorForm.contact_info = $event;
+                  return $data.doctors.contact_info = $event;
                 })
               }, null, 8 /* PROPS */, ["modelValue"])];
             }),

@@ -27,7 +27,8 @@ export default {
     data() {
         return {
             me: this.appVars.me,
-            doctors: []  // Add the doctors property here
+            doctors: [],  // Add the doctors property here
+            saving: false
         };
     },
     methods: {
@@ -35,12 +36,30 @@ export default {
             this.$router.push({ name: 'create-doctor' });
         },
         fetchDoctors() {
-            // Fake data function, replace with actual API call
-            this.doctors = [
-                { id: 1, username: 'doctor1', email: 'doctor1@example.com', name: 'Doctor One', specialty: 'Cardiology', contact_info: '123-456-7890' },
-                { id: 2, username: 'doctor2', email: 'doctor2@example.com', name: 'Doctor Two', specialty: 'Dermatology', contact_info: '123-456-7891' }
-            ];
+            this.saving = true;
+            this.$get('doctors',{
+                search: '',
+            })
+            .then(response => {
+                this.doctors = response.doctors;
+
+            })
+            .catch(errors => {
+                    this.$handleError(errors);
+                    console.log(errors);
+                })
+             .finally(() => {
+                 this.saving = false;
+            });
+            
         },
+            
+            
+            // this.doctors = [
+            //     { id: 1, username: 'doctor1', email: 'doctor1@example.com', name: 'Doctor One', specialty: 'Cardiology', contact_info: '123-456-7890' },
+            //     { id: 2, username: 'doctor2', email: 'doctor2@example.com', name: 'Doctor Two', specialty: 'Dermatology', contact_info: '123-456-7891' }
+            // ];
+        
         editDoctor(doctor) {
             // Implement edit functionality
         },

@@ -1,8 +1,6 @@
 <?php
 
-require_once __DIR__ . '/router.php';
 
-use FluentPlugin\App\Services\Router;
 use FluentPlugin\App\Http\Controllers\DoctorController;
 use FluentPlugin\App\Http\Controllers\PatientController;
 
@@ -16,11 +14,11 @@ use FluentPlugin\App\Http\Controllers\PatientController;
     });
 
     // Define routes for patients
-    $router->prefix('patients')->group(function ($router) {
-        $router->get('/', [PatientController::class, 'index']);
-        $router->post('/', [PatientController::class, 'store']);
-        $router->get('/{id}', [PatientController::class, 'show'])->int('id');
-        $router->put('/{id}', [PatientController::class, 'update'])->int('id');
-        $router->delete('/{id}', [PatientController::class, 'destroy'])->int('id');
-        $router->get('/condition/{condition}', [PatientController::class, 'filterByCondition'])->string('condition');
-    });
+    // $router->prefix('patients')->group(function ($router) {
+    //     $router->get('/', [PatientController::class, 'index']);
+    //     $router->post('/', [PatientController::class, 'store']);
+    //     $router->get('/{id}', [PatientController::class, 'show'])->int('id');
+    //     $router->put('/{id}', [PatientController::class, 'update'])->int('id');
+    //     $router->delete('/{id}', [PatientController::class, 'destroy'])->int('id');
+    //     $router->get('/condition/{condition}', [PatientController::class, 'filterByCondition'])->string('condition');
+    // });

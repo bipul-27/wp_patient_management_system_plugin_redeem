@@ -16,7 +16,7 @@ return function($file) {
         ($app->make(DeactivationHandler::class))->handle();
     });
 
-    // add_action('plugins_loaded', function() use ($app) {
-    //     do_action('fluentplugin_loaded', $app);
-    // });
+    add_action('plugins_loaded', function() use ($app) {
+        do_action('fluentplugin_loaded', $app);
+    });
 };
