@@ -15,7 +15,7 @@ class DoctorMigrator
         $table = $wpdb->prefix . static::$tableName;
 
         $sql = "CREATE TABLE $table (
-            doctor_id INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+            id INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
             username VARCHAR(255) NOT NULL UNIQUE,
             email VARCHAR(255) NOT NULL UNIQUE,
             name VARCHAR(255) NOT NULL,
