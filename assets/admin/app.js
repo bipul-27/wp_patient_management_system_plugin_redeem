@@ -52019,7 +52019,14 @@ __webpack_require__.r(__webpack_exports__);
       // Implement edit functionality
     },
     deleteDoctor: function deleteDoctor(id) {
-      // Implement delete functionality
+      var _this2 = this;
+      this.$del("doctors/".concat(id)).then(function (response) {
+        _this2.$notify.success(response.message || 'Doctor deleted successfully');
+        _this2.fetchDoctors();
+      })["catch"](function (error) {
+        _this2.$handleError(error);
+        console.log(error);
+      });
     }
   },
   mounted: function mounted() {

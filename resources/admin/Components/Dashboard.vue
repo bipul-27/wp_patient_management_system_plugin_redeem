@@ -64,8 +64,16 @@ export default {
             // Implement edit functionality
         },
         deleteDoctor(id) {
-            // Implement delete functionality
-        }
+    this.$del(`doctors/${id}`)
+    .then(response => {
+        this.$notify.success(response.message || 'Doctor deleted successfully');
+        this.fetchDoctors();
+    })
+    .catch(error => {
+        this.$handleError(error);
+        console.log(error);
+    });
+}
     },
     mounted() {
         this.fetchDoctors();

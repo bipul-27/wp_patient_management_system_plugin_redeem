@@ -80,8 +80,13 @@ class DoctorController extends Controller
 
     public function destroy($id)
     {
-        Doctor::findOrFail($id)->delete();
-        return response()->json(null,204);
+        
+            $doctor = Doctor::findOrFail($id);
+            $doctor->delete();
+
+            return [
+                'message' => __('Doctor Deleted Successfully')
+            ];
     }
 
     public function filterBySpeciality($speciality)
