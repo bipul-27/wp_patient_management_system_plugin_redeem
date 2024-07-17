@@ -7,10 +7,11 @@
                     <el-table-column prop="username" label="Username"></el-table-column>
                     <el-table-column prop="email" label="Email"></el-table-column>
                     <el-table-column prop="name" label="Name"></el-table-column>
-                    <el-table-column prop="specialty" label="Specialty"></el-table-column>
+                    <el-table-column prop="speciality" label="Speciality"></el-table-column>
                     <el-table-column prop="contact_info" label="Contact Info"></el-table-column>
                     <el-table-column label="Actions">
                         <template v-slot="scope">
+                            <el-button @click="managePatients(scope.row)">Patients</el-button>
                             <el-button @click="editDoctor(scope.row)">Edit</el-button>
                             <el-button type="danger" @click="deleteDoctor(scope.row.id)">Delete</el-button>
                         </template>
@@ -62,6 +63,10 @@ export default {
         
         editDoctor(doctor) {
             // Implement edit functionality
+            this.$router.push({ name: 'edit-doctor', params: { id: doctor.id } });
+        },
+        managePatients(doctor) {
+            this.$router.push({ name: 'patient-management', params: { id: doctor.id } });
         },
         deleteDoctor(id) {
     this.$del(`doctors/${id}`)

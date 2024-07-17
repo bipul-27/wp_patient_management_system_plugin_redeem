@@ -14,7 +14,7 @@ class PatientsMigrator
         $table = $wpdb->prefix. static::$tableName;
 
         $sql = "CREATE TABLE $table(
-        patient_id INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+        id INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
         doctor_id INT UNSIGNED NOT NULL,
         name VARCHAR(255) NOT NULL,
         email VARCHAR(255) NOT NULL UNIQUE,
@@ -24,7 +24,7 @@ class PatientsMigrator
         health_condition ENUM('critical','stable','normal') NOT NULL,
         created_at TIMESTAMP NULL,
         updated_at TIMESTAMP NULL,
-        FOREIGN KEY(doctor_id) REFERENCES {$wpdb->prefix}doctors(doctor_id)
+        FOREIGN KEY(doctor_id) REFERENCES {$wpdb->prefix}doctors(id)
         )$charsetCollate;";
         require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
         dbDelta($sql);

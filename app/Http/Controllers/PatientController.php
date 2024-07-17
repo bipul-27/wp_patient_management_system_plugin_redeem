@@ -2,15 +2,25 @@
 
 namespace FluentPlugin\App\Http\Controllers;
 
-use App\Models\Doctor;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
+use FluentPlugin\App\Models\Patient;
+use FluentPlugin\Framework\Request\Request;
+
 
 class PatientController extends Controller 
 {
-    public function index()
+    public function index(Request $request, $doctorId)
     {
-        return Patient::all();
+        $search = sanitize_text_field($request->get('search'));
+        $query=Patient::where('doctor_id', $doctorId);
+        if(!empty($search))
+        {
+            $query=$query->where('health_condition',$search);
+        }
+        $query=$query->get();
+        return[
+            'patients'=>$query
+        ];
+
     }
 
     public function show($id)
@@ -18,19 +28,37 @@ class PatientController extends Controller
         return Patient::find($id);
     }
 
-    public function store(Request $request)
+    public function store(Request $request,$doctorId)
     {
-        $request->validate([
-            'doctor_id' => 'required|exists:doctors,id',
-            'name' => 'required',
-            'email' => 'required|unique:patients',
-            'health_condition' => 'required'
+        $patient = $request->get('patients');
+        // $request->validate([
+        //     'doctor_id' => 'required|exists:doctors,id',
+        //     'name' => 'required',
+        //     'email' => 'required|unique:patients',
+        //     'health_condition' => 'required'
 
-        ]);
+        // ]);
+        // console.log($patient);
+        $data = [
+        'doctor_id' => $doctorId,
+        'name'=> $patient['name'],
+        'email'=> $patient['email'], 
+        'age'=> $patient['age'], 
+        'gender'=> $patient['gender'], 
+        'contact_info'=> $patient['contact_info'], 
+        'health_condition'=> $patient['health_condition']
+        ];
 
-        $patient = Patient::create($request->all());
+        Patient::create($data);
 
-        return response()->json($patient,201);
+        $allPatients = Patient::where('doctor_id', $doctorId)->get();
+
+        return[
+            'message' => 'success',
+            'patients' => $allPatients
+        ];
+
+        
     }
 
     public function update(Request $request, $id)

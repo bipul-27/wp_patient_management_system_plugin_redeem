@@ -13,12 +13,12 @@ use FluentPlugin\App\Http\Controllers\PatientController;
         $router->delete('/{id}', [DoctorController::class, 'destroy'])->int('id');
     });
 
-    // Define routes for patients
-    // $router->prefix('patients')->group(function ($router) {
-    //     $router->get('/', [PatientController::class, 'index']);
-    //     $router->post('/', [PatientController::class, 'store']);
+    //Define routes for patients
+    $router->prefix('doctors/{doctorId}/patients')->group(function ($router) {
+        $router->get('/', [PatientController::class, 'index']);
+        $router->post('/', [PatientController::class, 'store']);
     //     $router->get('/{id}', [PatientController::class, 'show'])->int('id');
     //     $router->put('/{id}', [PatientController::class, 'update'])->int('id');
     //     $router->delete('/{id}', [PatientController::class, 'destroy'])->int('id');
     //     $router->get('/condition/{condition}', [PatientController::class, 'filterByCondition'])->string('condition');
-    // });
+    });

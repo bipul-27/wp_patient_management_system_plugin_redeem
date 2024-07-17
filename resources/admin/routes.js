@@ -1,5 +1,8 @@
 import Dashboard from './Components/Dashboard.vue';
 import CreateDoctor from './Components/CreateDoctor.vue';
+import PatientManagement from './Components/PatientManagement.vue';
+import PatientDetails from './Components/PatientDetails.vue';
+import CreatePatient from './Components/CreatePatient.vue';
 
 
 export var routes = [
@@ -17,6 +20,38 @@ export var routes = [
         component: CreateDoctor,
         meta: {
             active_menu: 'create-doctor'
+        }
+    },
+    {
+        path: '/edit-doctor/:id',
+        name: 'edit-doctor',
+        component: CreateDoctor,
+        meta: {
+            active_menu: 'edit-doctor'
+        }
+    },
+    {
+        path: '/doctor/:id/patients',
+        name: 'patient-management',
+        component: PatientManagement,
+        meta: {
+            active_menu: 'patient-management'
+        }
+    },
+    {
+        path: '/doctor/:doctorId/patient/:id',
+        name: 'patient-details',
+        component: PatientDetails,
+        meta: {
+            active_menu: 'patient-details'
+        }
+    },
+    {
+        path: '/doctor/:id/create-patient',
+        name: 'create-patient',
+        component: CreatePatient,
+        meta: {
+            active_menu: 'create-patient'
         }
     }
     

@@ -57,7 +57,7 @@ class DoctorController extends Controller
                 'email' => $doctor['email'],
                 'name' => $doctor['name'],
                 'contact_info' => $doctor['contact_info'],
-                'speciality' => $doctor['specialty']
+                'speciality' => $doctor['speciality']
             ];
             Doctor::create($data);
             $allDoctors = Doctor::query()->get();

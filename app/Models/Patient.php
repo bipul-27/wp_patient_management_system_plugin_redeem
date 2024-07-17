@@ -4,13 +4,12 @@ namespace FluentPlugin\App\Models;
 
 use FluentPlugin\App\Models\Model;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Foundation\Auth\User as Authenticatable;
+
 
 class Patient extends Model 
 {
-    use HasFactory;
-    protected $table = 'wp_patients';
+    
+    protected $table = 'patients';
     protected $fillable = [
         'doctor_id',
         'name',
