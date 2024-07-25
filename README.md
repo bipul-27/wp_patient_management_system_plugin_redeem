@@ -1,1 +1,1 @@
-# WPFluent - WordPress Plugin development made easy.
+# WPFluent - WordPress 
