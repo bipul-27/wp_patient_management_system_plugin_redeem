@@ -1,6 +1,9 @@
-.env
+.DS_Store
 /composer.lock
 /package-lock.json
 /node_modules/
+# Ignore the .idea folder
+/.idea/
 
-
+# Ignore the .vscode folder
+/.vscode/
