@@ -24,7 +24,7 @@ class PatientsMigrator
         health_condition ENUM('critical','stable','normal') NOT NULL,
         created_at TIMESTAMP NULL,
         updated_at TIMESTAMP NULL,
-        FOREIGN KEY(doctor_id) REFERENCES {$wpdb->prefix}doctors(id)
+        FOREIGN KEY(doctor_id) REFERENCES {$wpdb->prefix}doctors(id) ON DELETE CASCADE
         )$charsetCollate;";
         require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
         dbDelta($sql);
