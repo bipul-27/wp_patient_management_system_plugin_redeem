@@ -69,10 +69,18 @@ class PatientController extends Controller
         return response()->json($patient, 200);
     }
 
-    public function destroy($id)
+    public function destroy($doctorId,$id)
     {
-        Patient::findOrFail($id)->delete();
-        return response()->json(null,204);
+        $patient = Patient::where('id',$id)
+                          ->where('doctor_id',$doctorId)
+                          ->firstOrFail();
+        // $query=Patient::where('doctor_id',$doctorId);
+        // $query=$query->where('id',$id);
+        // $query->delete();
+        $patient->delete();
+        return [
+            'message' => __('Doctor Deleted Successfully')
+        ];
     }
 
     public function filteByHealthCondition($condition)

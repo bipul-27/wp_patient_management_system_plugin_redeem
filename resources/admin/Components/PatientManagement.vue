@@ -13,11 +13,11 @@
                 <el-table-column prop="contact_info" label="Contact Info"></el-table-column>
                 <el-table-column prop="health_condition" label="Health Condition"></el-table-column>
                 <el-table-column label="Actions">
-                    <!-- <template v-slot="scope">
+                    <template v-slot="scope">
                         <el-button @click="viewPatient(scope.row)">View</el-button>
                         <el-button @click="editPatient(scope.row)">Edit</el-button>
                         <el-button type="danger" @click="deletePatient(scope.row.id)">Delete</el-button>
-                    </template> -->
+                    </template>
                 </el-table-column>
             </el-table>
         </el-card>
@@ -49,8 +49,19 @@ export default {
                 this.$handleError(error);
                 console.log(error);
             });
-        }
+        },
+    deletePatient(id){
+        this.$del(`doctors/${this.doctorId}/patients/${id}`)
+        .then(response => {
+        this.$notify.success(response.message || 'Patient deleted successfully');
+        this.fetchPatients();
+    })
+    .catch(error => {
+        this.$handleError(error);
+        console.log(error);
+    });
     },
+},
     mounted() {
         this.fetchPatients();
     }
