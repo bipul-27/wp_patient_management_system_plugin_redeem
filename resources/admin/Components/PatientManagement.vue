@@ -2,9 +2,17 @@
     <div class="patient-management-container">
         <el-button type="primary" @click="navigateBack">Back to Doctor List</el-button>
         <el-card class="patient-management-card" shadow="hover">
+            <div class="header-actions">
             <h2>Manage Patients for Doctor {{ doctorId }}</h2>
+            <el-select v-model="healthConditionFilter" placeholder="Filter by Health Condition" @change="fetchPatients">
+                <el-option label="All" value=""></el-option>
+                <el-option label="Critical" value="critical"></el-option>
+                <el-option label="Stable" value="stable"></el-option>
+                <el-option label="Normal" value="normal"></el-option>
+
+            </el-select>
             <el-button type="primary" @click="navigateToCreatePatient">Add Patient</el-button>
-            
+        </div>
             <el-table :data="patients" style="width: 100%; margin-top: 20px;">
                 <el-table-column prop="name" label="Name"></el-table-column>
                 <el-table-column prop="email" label="Email"></el-table-column>
@@ -30,6 +38,7 @@ export default {
     data() {
         return {
             doctorId: this.$route.params.id,
+            healthConditionFilter: '',
             patients: []
         };
     },
@@ -41,7 +50,9 @@ export default {
             this.$router.push({ name: 'create-patient', params: { id: this.doctorId } });
         },
         fetchPatients() {
-            this.$get(`doctors/${this.doctorId}/patients`)
+            this.$get(`doctors/${this.doctorId}/patients`,{
+                health_condition: this.healthConditionFilter,
+            })
             .then(response => {
                 this.patients = response.patients;
             })
@@ -80,5 +91,11 @@ export default {
     width: 100%;
     max-width: 800px;
     margin-top: 20px;
+}
+.header-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
 }
 </style>

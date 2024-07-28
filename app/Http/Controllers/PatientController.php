@@ -10,7 +10,7 @@ class PatientController extends Controller
 {
     public function index(Request $request, $doctorId)
     {
-        $search = sanitize_text_field($request->get('search'));
+        $search = sanitize_text_field($request->get('health_condition'));
         $query=Patient::where('doctor_id', $doctorId);
         if(!empty($search))
         {
