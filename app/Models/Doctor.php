@@ -17,7 +17,7 @@ class Doctor extends Model
          'password',
           'email', 
           'name',
-           'specialty',
+           'speciality',
             'contact_info'
             
     ];
