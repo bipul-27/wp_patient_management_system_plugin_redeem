@@ -2,8 +2,12 @@
     <div class="patient-management-container">
         <el-button type="primary" @click="navigateBack">Back to Doctor List</el-button>
         <el-card class="patient-management-card" shadow="hover">
-            <div class="header-actions">
+            <div class="header">
             <h2>Manage Patients for Doctor {{ doctorId }}</h2>
+        </div>
+            <div class="actions">
+           
+                <el-button type="primary" @click="navigateToCreatePatient">Add Patient</el-button>
             <el-select v-model="healthConditionFilter" placeholder="Filter by Health Condition" @change="fetchPatients">
                 <el-option label="All" value=""></el-option>
                 <el-option label="Critical" value="critical"></el-option>
@@ -11,7 +15,7 @@
                 <el-option label="Normal" value="normal"></el-option>
 
             </el-select>
-            <el-button type="primary" @click="navigateToCreatePatient">Add Patient</el-button>
+            
         </div>
             <el-table :data="patients" style="width: 100%; margin-top: 20px;">
                 <el-table-column prop="name" label="Name"></el-table-column>
@@ -86,16 +90,33 @@ export default {
     flex-direction: column;
     align-items: center;
 }
+.header {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    margin-bottom: 20px;
+}
 
 .patient-management-card {
     width: 100%;
     max-width: 800px;
     margin-top: 20px;
 }
-.header-actions {
+/* .header-actions {
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-bottom: 20px;
+} */
+.actions {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    max-width: 800px;
+    align-items: center;
+}
+.actions .filter-select {
+    flex: 0 1 auto; /* Adjust width based on content */
+    margin-left: auto;
 }
 </style>

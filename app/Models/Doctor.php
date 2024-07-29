@@ -14,7 +14,6 @@ class Doctor extends Model
 
     protected $fillable = [
         'username',
-         'password',
           'email', 
           'name',
            'speciality',
@@ -22,9 +21,7 @@ class Doctor extends Model
             
     ];
 
-    protected $hidden = [
-        'password',
-    ];
+   
 
     public function patients()
     {

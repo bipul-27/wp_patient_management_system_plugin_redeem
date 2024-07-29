@@ -31,8 +31,8 @@ class DoctorController extends Controller
 
     public function store(Request $request)
     {
-        $doctor = $request->get('doctors');
-        
+       
+         $doctor = $request->get('doctors');
         try {
             // $doctor->validate([
             //     'username'=> 'required|unique',
@@ -75,7 +75,10 @@ class DoctorController extends Controller
     {
         $doctor=Doctor::findOrFail($id);
         $doctor->update($request->all());
-        return response()->json($doctor,200);
+        return [
+            'message' => __('Doctor Updated Successfully')
+        ];
+       
     }
 
     public function destroy($id)

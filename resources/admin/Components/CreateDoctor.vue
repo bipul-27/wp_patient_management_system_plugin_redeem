@@ -7,9 +7,6 @@
                 <el-form-item label="Username">
                     <el-input v-model="doctors.username"></el-input>
                 </el-form-item>
-                <el-form-item label="Password" v-if="isEdit">
-                    <el-input type="password" v-model="doctors.password"></el-input>
-                </el-form-item>
                 <el-form-item label="Email">
                     <el-input v-model="doctors.email"></el-input>
                 </el-form-item>
@@ -38,12 +35,13 @@ export default {
         return {
             doctors: {
                 username: '',
-                password: '',
                 email: '',
                 name: '',
                 speciality: '',
                 contact_info: ''
             },
+            isEdit: false,
+            doctorId: null,
             saving: false
         };
     },
@@ -53,9 +51,10 @@ export default {
         },
         fetchDoctors(id) {
             this.saving = true;
-            this.$get('doctors/${id}')
+            this.$get(`doctors/${id}`)
             .then(response => {
-                Object.assign(this.doctorForm, response);
+                // console.log('API response:', response);
+                this.doctors = response;
 
             })
             .catch(errors => {
@@ -68,15 +67,21 @@ export default {
             
         },
         saveDoctor(){
+            this.saving = true;
             if(this.isEdit)
         {
-            this.$put('doctors/${id}',{
-                doctors:this.doctors,
-            })
+            this.$put(`doctors/${this.doctorId}`,this.doctors)
             .then(response=>{
                 this.$notify.success(response.message || 'Doctor Edited successfully');
                 this.navigateBack();
             })
+            .catch(errors => {
+                        this.$handleError(errors);
+                        console.log(errors);
+                    })
+                    .finally(() => {
+                        this.saving = false;
+                    });
         }
         else{
             this.$post('doctors',{
