@@ -18,7 +18,7 @@ use FluentPlugin\App\Http\Controllers\PatientController;
         $router->get('/', [PatientController::class, 'index']);
         $router->post('/', [PatientController::class, 'store']);
     //     $router->get('/{id}', [PatientController::class, 'show'])->int('id');
-    //     $router->put('/{id}', [PatientController::class, 'update'])->int('id');
+        $router->put('/{id}', [PatientController::class, 'update'])->int('id');
         $router->delete('/{id}', [PatientController::class, 'destroy'])->int('id');
     //     $router->get('/condition/{condition}', [PatientController::class, 'filterByCondition'])->string('condition');
     });

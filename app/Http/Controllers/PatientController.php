@@ -66,7 +66,9 @@ class PatientController extends Controller
         $patient = Patient::findOrFail($id);
         $patient->update($request->all());
 
-        return response()->json($patient, 200);
+        return [
+            'message' => __('Patient Updated Successfully')
+        ];
     }
 
     public function destroy($doctorId,$id)
