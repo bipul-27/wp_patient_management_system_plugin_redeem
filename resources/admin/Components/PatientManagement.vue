@@ -26,7 +26,7 @@
                 <el-table-column prop="health_condition" label="Health Condition"></el-table-column>
                 <el-table-column label="Actions">
                     <template v-slot="scope">
-                        <el-button @click="viewPatient(scope.row)">View</el-button>
+                        <!-- <el-button @click="viewPatient(scope.row)">View</el-button> -->
                         <el-button @click="editPatient(scope.row)">Edit</el-button>
                         <el-button type="danger" @click="deletePatient(scope.row.id)">Delete</el-button>
                     </template>
