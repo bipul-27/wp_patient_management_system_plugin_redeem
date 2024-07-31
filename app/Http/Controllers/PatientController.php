@@ -23,10 +23,13 @@ class PatientController extends Controller
 
     }
 
-    public function show($id)
+    public function show($doctorId, $patientId)
     {
-        return Patient::find($id);
+        return Patient::where('id', $patientId)
+            ->where('doctor_id', $doctorId)
+            ->first();
     }
+    
 
     public function store(Request $request,$doctorId)
     {
@@ -61,9 +64,11 @@ class PatientController extends Controller
         
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $request, $doctorId, $patientId)
     {
-        $patient = Patient::findOrFail($id);
+        $patient = Patient::where('id',$patientId)
+                          ->where('doctor_id',$doctorId)
+                          ->firstOrFail();
         $patient->update($request->all());
 
         return [

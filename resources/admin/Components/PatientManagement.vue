@@ -76,6 +76,9 @@ export default {
         console.log(error);
     });
     },
+    editPatient(patient){
+        this.$router.push({name: 'edit-patient', params: {doctorId: this.doctorId, patientId: patient.id}});
+    }
 },
     mounted() {
         this.fetchPatients();

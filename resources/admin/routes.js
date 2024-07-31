@@ -53,6 +53,11 @@ export var routes = [
         meta: {
             active_menu: 'create-patient'
         }
+    },
+    {
+        path: '/doctors/:doctorId/patients/:patientId/edit',
+        name: 'edit-patient',
+        component: CreatePatient
     }
     
     

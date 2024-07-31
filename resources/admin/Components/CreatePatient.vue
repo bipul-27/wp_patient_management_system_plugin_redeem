@@ -2,8 +2,8 @@
     <div class="create-patient-container">
         <el-button type="primary" @click="navigateBack">Back to Patient List</el-button>
         <el-card class="create-patient-card" shadow="hover">
-            <h2>Create Patient for Doctor {{ doctorId }}</h2>
-            <el-form :model="patientForm" label-width="120px" class="create-patient-form">
+            <h2>{{ isEdit ? 'Edit Patient' : 'Create Patient' }}</h2>
+            <el-form :model="patients" label-width="120px" class="create-patient-form">
                 <el-form-item label="Name">
                     <el-input v-model="patients.name"></el-input>
                 </el-form-item>
@@ -31,7 +31,7 @@
                     </el-select>
                 </el-form-item>
                 <el-form-item class="form-actions">
-                    <el-button type="primary" @click="createPatient">Create</el-button>
+                    <el-button type="primary" @click="savePatient">{{ isEdit ? 'Update' : 'Create' }}</el-button>
                     <el-button @click="navigateBack">Cancel</el-button>
                 </el-form-item>
             </el-form>
@@ -44,9 +44,9 @@ export default {
     name: 'CreatePatient',
     data() {
         return {
-            doctorId: this.$route.params.id,
+            doctorId: this.$route.params.doctorId,
+            patientId: this.$route.params.patientId,
             patients: {
-                doctor_id: '',
                 name: '',
                 email: '',
                 age: '',
@@ -54,6 +54,7 @@ export default {
                 contact_info: '',
                 health_condition: ''
             },
+            isEdit: false,
             saving: false
         };
     },
@@ -61,24 +62,56 @@ export default {
         navigateBack() {
             this.$router.push({ name: 'patient-management', params: { id: this.doctorId } });
         },
-        createPatient() {
-            
-            this.$post(`doctors/${this.doctorId}/patients`, {
-                patients:this.patients,
-            }
-            )
+        fetchPatient(id) {
+            this.saving = true;
+            this.$get(`doctors/${this.doctorId}/patients/${id}`)
             .then(response => {
-                this.$notify.success(response.message || 'Patient Edited successfully');
-                
+                this.patients = response;
             })
-            .catch(error => {
-                this.$handleError(error);
-                console.log(error);
+            .catch(errors => {
+                this.$handleError(errors);
+                console.log(errors);
             })
             .finally(() => {
-                 this.saving = false;
+                this.saving = false;
             });
-            this.navigateBack();
+        },
+        savePatient() {
+            this.saving = true;
+            if (this.isEdit) {
+                this.$put(`doctors/${this.doctorId}/patients/${this.patientId}`, this.patients)
+                .then(response => {
+                    console.log('API response:', response);
+                    this.$notify.success(response.message || 'Patient edited successfully');
+                    this.navigateBack();
+                })
+                .catch(errors => {
+                    this.$handleError(errors);
+                    console.log(errors);
+                })
+                .finally(() => {
+                    this.saving = false;
+                });
+            } else {
+                this.$post(`doctors/${this.doctorId}/patients`, this.patients)
+                .then(response => {
+                    this.$notify.success(response.message || 'Patient created successfully');
+                    this.navigateBack();
+                })
+                .catch(errors => {
+                    this.$handleError(errors);
+                    console.log(errors);
+                })
+                .finally(() => {
+                    this.saving = false;
+                });
+            }
+        }
+    },
+    mounted() {
+        if (this.patientId) {
+            this.isEdit = true;
+            this.fetchPatient(this.patientId);
         }
     }
 }
