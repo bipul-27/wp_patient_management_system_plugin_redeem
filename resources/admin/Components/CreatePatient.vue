@@ -44,7 +44,7 @@ export default {
     name: 'CreatePatient',
     data() {
         return {
-            doctorId: this.$route.params.doctorId,
+            doctorId: this.$route.params.id,
             patientId: this.$route.params.patientId,
             patients: {
                 name: '',
@@ -93,7 +93,9 @@ export default {
                     this.saving = false;
                 });
             } else {
-                this.$post(`doctors/${this.doctorId}/patients`, this.patients)
+                this.$post(`doctors/${this.doctorId}/patients`, {
+                patients:this.patients,
+            })
                 .then(response => {
                     this.$notify.success(response.message || 'Patient created successfully');
                     this.navigateBack();
